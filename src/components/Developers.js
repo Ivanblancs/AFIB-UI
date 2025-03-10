@@ -6,9 +6,9 @@ import developer3 from '../developer_images/developer3.png';
 
 function Developers() {
   const developers = [
-    { name: "John Doe", role: "Lead Developer", image: developer1 },
-    { name: "Jane Smith", role: "UI/UX Designer", image: developer2 },
-    { name: "Mike Johnson", role: "Algorithm Specialist", image: developer3 },
+    { name: "Christian Ivan Blanca", role: "Lead Researcher and Developer", image: developer1 },
+    { name: "Kent Bryan Ode", role: "Talk Show Host", image: developer2 },
+    { name: "Karl Castillejos", role: "Project Manager", image: developer3 },
   ];
 
   return (
