@@ -1,23 +1,28 @@
 import React, { useState } from 'react';
-import { Container, Typography } from '@mui/material';
+import { Container, Typography, Box, Checkbox, FormControlLabel, Button } from '@mui/material';
 import ECGChart from './components/ECGChart';
 import FileUpload from './components/FileUpload';
+import Tutorial from './components/Tutorial';
+import About from './components/About';
+import Developers from './components/Developers';
 import './App.css';
 
 function App() {
   const [ecgData, setEcgData] = useState([]);
-  const [afResult, setAfResult] = useState('TBD'); // 'Negative' or 'Positive'
+  const [afResult, setAfResult] = useState('TBD');
   const [statusLabel, setStatusLabel] = useState('Upload an ECG file to start');
+  const [agreementChecked, setAgreementChecked] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(false);
 
   const handleEcgData = (data) => {
+    if (!agreementChecked) return;
     setEcgData(data);
     setStatusLabel('Processing...');
-    setAfResult('TBD'); // Reset result during processing
+    setAfResult('TBD');
     setTimeout(() => setStatusLabel('Checking...'), 1000);
     setTimeout(() => setStatusLabel('Checking again...'), 2000);
     setTimeout(() => {
-      // Mock AF detection (replace with FFT-CNN later)
-      const isPositive = Math.random() > 0.5; // 50% chance for demo
+      const isPositive = Math.random() > 0.5;
       setAfResult(isPositive ? 'Positive' : 'Negative');
       setStatusLabel('Analysis Complete');
     }, 3000);
@@ -28,14 +33,41 @@ function App() {
       <Typography variant="h4" align="center" gutterBottom sx={{ color: '#1976d2' }}>
         Virtual ECG Monitor
       </Typography>
+      
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2, width: '100%', maxWidth: 600, mx: 'auto' }}>
+        <Button onClick={() => setShowTutorial(true)}>Tutorial</Button>
+        <Box>
+          <Button sx={{ mr: 1 }} href="#about">About</Button>
+          <Button href="#developers">Developers</Button>
+        </Box>
+      </Box>
+
       <ECGChart ecgData={ecgData} afResult={afResult} />
-      <FileUpload onFileUpload={handleEcgData} />
+      
+      <Box sx={{ mb: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <FileUpload onFileUpload={handleEcgData} disabled={!agreementChecked} />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={agreementChecked}
+              onChange={(e) => setAgreementChecked(e.target.checked)}
+            />
+          }
+          label="I agree that my uploaded ECG data may be used to train the model for improved accuracy"
+          sx={{ mt: 1 }}
+        />
+      </Box>
+
       <Typography variant="h6" align="center" sx={{ color: '#666', mt: 2 }}>
         {statusLabel}
       </Typography>
-      <Typography variant="body2" align="center" sx={{ color: '#888', mt: 1 }}>
-        Prototype: Upload an ECG file to see it play. AF result to be integrated later.
-      </Typography>
+      
+      <About />
+      <Developers />
+      
+      {showTutorial && (
+        <Tutorial onClose={() => setShowTutorial(false)} />
+      )}
     </Container>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@mui/material';
 
-function FileUpload({ onFileUpload }) {
+function FileUpload({ onFileUpload, disabled }) {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -37,7 +37,13 @@ function FileUpload({ onFileUpload }) {
     <Button
       variant="contained"
       component="label"
-      sx={{ bgcolor: '#1976d2', '&:hover': { bgcolor: '#115293' }, mb: 2 }}
+      disabled={disabled}
+      sx={{ 
+        bgcolor: '#1976d2', 
+        '&:hover': { bgcolor: '#115293' }, 
+        mb: 2,
+        opacity: disabled ? 0.6 : 1
+      }}
     >
       Upload ECG File
       <input
