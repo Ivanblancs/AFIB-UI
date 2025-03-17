@@ -1,10 +1,10 @@
+// src/App.js
 import React, { useState } from 'react';
 import { Container, Typography, Box, Checkbox, FormControlLabel, Button } from '@mui/material';
 import ECGChart from './components/ECGChart';
 import FileUpload from './components/FileUpload';
 import Tutorial from './components/Tutorial';
-import About from './components/About';
-import Developers from './components/Developers';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
 
 function App() {
@@ -13,6 +13,7 @@ function App() {
   const [statusLabel, setStatusLabel] = useState('Upload an ECG file to start');
   const [agreementChecked, setAgreementChecked] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
+  const navigate = useNavigate();
 
   const handleEcgData = (data) => {
     if (!agreementChecked) return;
@@ -36,10 +37,7 @@ function App() {
       
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2, width: '100%', maxWidth: 600, mx: 'auto' }}>
         <Button onClick={() => setShowTutorial(true)}>Tutorial</Button>
-        <Box>
-          <Button sx={{ mr: 1 }} href="#about">About</Button>
-          <Button href="#developers">Developers</Button>
-        </Box>
+        <Button onClick={() => navigate('/')}>Back to Home</Button>
       </Box>
 
       <ECGChart ecgData={ecgData} afResult={afResult} />
@@ -61,9 +59,6 @@ function App() {
       <Typography variant="h6" align="center" sx={{ color: '#666', mt: 2 }}>
         {statusLabel}
       </Typography>
-      
-      <About />
-      <Developers />
       
       {showTutorial && (
         <Tutorial onClose={() => setShowTutorial(false)} />
