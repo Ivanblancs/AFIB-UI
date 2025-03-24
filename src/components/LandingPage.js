@@ -91,7 +91,7 @@ function LandingPage() {
                 textShadow: '2px 2px 4px rgba(0, 0, 0, 0.1)',
               }}
             >
-              Welcome to Virtual ECG Monitor
+              Welcome to AFIB Detector
             </Typography>
             <Typography
               variant="h6"
@@ -103,7 +103,7 @@ function LandingPage() {
                 fontSize: { xs: '1rem', sm: '1.2rem' },
               }}
             >
-              A cutting-edge tool to analyze your ECG data and detect Atrial Fibrillation with ease.
+              A tool to analyze your ECG data and detect Atrial Fibrillation with ease.
             </Typography>
             <Button
               variant="contained"

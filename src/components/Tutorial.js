@@ -1,23 +1,19 @@
-// src/components/Tutorial.js
 import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, Typography, Button, Box } from '@mui/material';
-import ecgChartImg from '../tutorial_images/ecg_chart.png'; // Add your images
-import resultImg from '../tutorial_images/result.png';
-import uploadImg from '../tutorial_images/upload.png';
+import ecgChartImg from '../tutorial_images/tuts 1.png'; // Add your images
+import resultImg from '../tutorial_images/tuts 2.png';
+import uploadImg from '../tutorial_images/tuts 3.png';
 
 function Tutorial({ onClose }) {
   const slides = [
     {
       image: ecgChartImg,
-      label: 'ECG Chart: Displays your ECG signal in real-time. Click and drag to pause and scroll.',
     },
     {
       image: resultImg,
-      label: 'Result: Shows if you’re AFIB positive (Irregular) or negative (Regular) after analysis.',
     },
     {
       image: uploadImg,
-      label: 'Upload Section: Upload your ECG file here (.csv or .dat format). Check the agreement to enable.',
     },
   ];
 
@@ -39,12 +35,32 @@ function Tutorial({ onClose }) {
     <Dialog open={true} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle>Tutorial</DialogTitle>
       <DialogContent>
-        <Box sx={{ textAlign: 'center' }}>
-          <img
-            src={slides[currentSlide].image}
-            alt={`Slide ${currentSlide + 1}`}
-            style={{ maxWidth: '100%', maxHeight: '400px', objectFit: 'contain' }}
-          />
+        <Box
+          sx={{
+            textAlign: 'center',
+            '& .imageContainer': {
+              width: '100%',
+              overflow: 'visible', // Ensures the scaled image isn’t clipped
+              '&:hover, &:focus-within': { // Scales on hover or focus
+                '& img': {
+                  transform: 'scale(1.2)', // Scales image by 20%
+                },
+              },
+            },
+            '& img': {
+              maxWidth: '100%',
+              maxHeight: '400px',
+              objectFit: 'contain',
+              transition: 'transform 0.2s ease-in-out', // Smooth scaling transition
+            },
+          }}
+        >
+          <div tabIndex="0" className="imageContainer">
+            <img
+              src={slides[currentSlide].image}
+              alt={`Slide ${currentSlide + 1}`}
+            />
+          </div>
           <Typography variant="h6" sx={{ mt: 2, mb: 2 }}>
             {slides[currentSlide].label}
           </Typography>

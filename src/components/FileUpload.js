@@ -51,6 +51,7 @@ function FileUpload({ onFileUpload, disabled }) {
         hidden
         onChange={handleFileChange}
         accept=".csv,.dat,.hea,.atr"
+        disabled={disabled} // Add this to disable the input when the button is disabled
       />
     </Button>
   );
